@@ -17,6 +17,17 @@ public final class SAP {
         this.digraph = G;
     }
 
+    private boolean isValid(int v, int w) {
+        return (v > 0 && v < digraph.V() && w > 0 && w < digraph.V());
+    }
+
+    private boolean isValid(Iterable<Integer> v, Iterable<Integer> w) {
+        if(v == null || w == null) return false;
+        for (Integer i : v) if (i == null || i < 0 || i >= digraph.V()) return false;
+        for (Integer i : w) if (i == null || i < 0 || i >= digraph.V()) return false;
+        return true;
+    }
+
     private HashMap<Integer, Integer> possibleVertices(int s) {
         HashMap<Integer, Integer> map = new HashMap<>();
         map.put(s,0);
@@ -37,8 +48,7 @@ public final class SAP {
     // length of shortest ancestral path between v and w; -1 if no such path
     public int length(int v, int w) {
 
-        if (v < 0 || v >= digraph.V()) throw new IllegalArgumentException();
-        if (w < 0 || w >= digraph.V()) throw new IllegalArgumentException();
+        if(!isValid(v, w)) throw new IllegalArgumentException();
 
         HashMap<Integer, Integer> verticesV = possibleVertices(v);
         HashMap<Integer, Integer> verticesW = possibleVertices(w);
@@ -62,8 +72,7 @@ public final class SAP {
     // a common ancestor of v and w that participates in the shortest ancestral path; -1 if no such path
     public int ancestor(int v, int w) {
 
-        if (v < 0 || v >= digraph.V()) throw new IllegalArgumentException();
-        if (w < 0 || w >= digraph.V()) throw new IllegalArgumentException();
+        if(!isValid(v, w)) throw new IllegalArgumentException();
 
         HashMap<Integer, Integer> verticesV = possibleVertices(v);
         HashMap<Integer, Integer> verticesW = possibleVertices(w);
@@ -86,9 +95,8 @@ public final class SAP {
 
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
-        if (v == null || w == null) throw new IllegalArgumentException();
-        for (Integer i : v) if (i == null || i < 0 || i >= digraph.V()) throw new IllegalArgumentException();
-        for (Integer i : w) if (i == null || i < 0 || i >= digraph.V()) throw new IllegalArgumentException();
+
+        if(!isValid(v, w)) throw new IllegalArgumentException();
 
         int minLen = Integer.MAX_VALUE;
         for (int i : v) {
@@ -102,10 +110,8 @@ public final class SAP {
 
     // a common ancestor that participates in the shortest ancestral path; -1 if no such path
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
-        if (v == null || w == null) throw new IllegalArgumentException();
-        for (Integer i : v) if (i == null || i < 0 || i >= digraph.V()) throw new IllegalArgumentException();
-        for (Integer i : w) if (i == null || i < 0 || i >= digraph.V()) throw new IllegalArgumentException();
 
+        if(!isValid(v, w)) throw new IllegalArgumentException();
 
         int minLen = Integer.MAX_VALUE;
         int iMin = -1;
