@@ -11,7 +11,7 @@ public class Outcast {
         this.wordNet = wordnet;
     }
 
-    // given an array of WordNet nouns, return an outcast
+    // Given an array of WordNet nouns, return an outcast
     public String outcast(String[] nouns) {
         if (nouns == null) throw new IllegalArgumentException();
         int maxDist = Integer.MIN_VALUE;

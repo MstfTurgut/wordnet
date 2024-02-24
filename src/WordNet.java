@@ -87,8 +87,8 @@ public class WordNet {
         return sap.length(aSet, bSet);
     }
 
-    // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
-    // in the shortest ancestral path (defined below)
+    // A synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
+    // In the shortest ancestral path
     public String sap(String nounA, String nounB) {
         if (!isNoun(nounA) || !isNoun(nounB)) throw new IllegalArgumentException();
 
@@ -98,7 +98,7 @@ public class WordNet {
         return synsetList.get(lineNum);
     }
 
-    // do unit testing of this class
+    // Unit testing of this class
     public static void main(String[] args) {
 
         WordNet wordNet = new WordNet(args[0], args[1]);
